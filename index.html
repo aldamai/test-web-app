@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Project Vision</title>
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" type="text/css" href="css/styles.css" />
+  <style>
+      body {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+          font-family: 'Inter', sans-serif;
+      }
+
+      #loginStatus {
+          text-align: center;
+          margin-top: 10px;
+      }
+
+      .status-icon {
+          display: inline-block;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          margin-left: 5px;
+      }
+
+      .online {
+          background-color: green;
+      }
+
+      .offline {
+          background-color: red;
+      }
+  </style>
+</head>
+<body>
+<header>
+  <nav>
+    <img class="nav-icon" src="assets/images/Logo-Outset-noPadding.svg" alt="Logo" />
+  </nav>
+</header>
+<main>
+  <p id="loginStatus">You are currently <span id="statusLabel">offline</span><span class="status-icon"></span>.</p>
+</main>
+<script>
+  const statusLabel = document.getElementById("statusLabel");
+  const statusIcon = document.querySelector(".status-icon");
+
+  function updateStatus() {
+    if (navigator.onLine) {
+      statusLabel.textContent = "online";
+      statusIcon.className = "status-icon online";
+    } else {
+      statusLabel.textContent = "offline";
+      statusIcon.className = "status-icon offline";
+    }
+  }
+
+  // Initial status update
+  updateStatus();
+
+  // Poll every second
+  setInterval(updateStatus, 1000);
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/service-worker.bundle.js").then(
+      (registration) => {
+        console.log("Service worker registration succeeded:", registration);
+      },
+      (error) => {
+        console.error(`Service worker registration failed: ${error}`);
+      },
+    );
+  } else {
+    console.error("Service workers are not supported.");
+  }
+</script>
+</body>
+</html>
