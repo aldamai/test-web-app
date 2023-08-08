@@ -1,0 +1,30 @@
+# compiled output
+/dist
+/tmp
+/out-tsc
+/documentation
+*.d.ts
+*.js
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+.DS_Store
+
+!webpack.common.config.js
+!jest.config.integration.js!
+!webpack.dev.config.js
+!webpack.dist.config.js
+!webpack.prod.config.js
+!/src/app/typings/*
