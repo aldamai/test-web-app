@@ -58,6 +58,37 @@
       statusIcon.className = "status-icon offline";
     }
   }
+function setCookie(name, value, options) {
+    options = options || {};
+
+    let cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
+
+    if (options.expires) {
+      const expires = options.expires.toUTCString();
+      cookie += `; expires=${expires}`;
+    }
+
+    if (options.path) {
+      cookie += `; path=${options.path}`;
+    }
+
+    if (options.domain) {
+      cookie += `; domain=${options.domain}`;
+    }
+
+    if (options.secure) {
+      cookie += `; secure`;
+    }
+
+    document.cookie = cookie;
+  }
+
+  setCookie("test","testvalue", {
+      expires: new Date(Date.now() + 86400000), // Expires in 1 day
+      path: '/',
+      domain: `${window.location.hostname}`,// Notice the leading dot, it's require so subdomains can access it
+      secure: false // Use HTTPS
+    })
 
   // Initial status update
   updateStatus();
